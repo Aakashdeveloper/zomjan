@@ -1,37 +1,42 @@
-import React,{Component} from 'react';
-import './QuickSearch.css';
-import QuickDisplay from './QucikDisplay';
-const url = "http://localhost:9700/quicksearch";
+import React from 'react';
+import {Link} from 'react-router-dom';
+import './quicksearch.css';
 
-class QuickSearch extends Component{
-    constructor(){
-        super()
+const QuickDisplay =(props) => { 
 
-        this.state={
-            mealType:''
+    const listMeal = ({mealData}) => {
+        if(mealData){
+            return mealData.map((item) => {
+                return(
+                    <Link to={`/listing/${item.mealtype_id}`} key={item._id}>
+                        <div className="tileContainer">
+                                <div className="tileComponent1">
+                                    <img src={item.meal_image} alt="breakfast"/>
+                                </div>
+                                <div className="tileComponent2">
+                                    <div className="componentHeading">
+                                        <p>{item.mealtype}</p>
+                                    </div>
+                                    <div className="componentSubHeading">
+                                        {item.content}
+                                    </div>
+                                </div>
+                        </div>
+                    </Link>
+                )
+            })
         }
     }
-    render(){
-        return(
-            <div className="quickSearch">
-                <span id="QuickSearchHeading">
-                    Quick Search
-                </span>
-                <span id="QuickSubHeading">
-                    Find Restaurant By MealType
-                </span>
-                <QuickDisplay mealdata={this.state.mealType}/>
+
+    
+    return(
+        <>
+            <div id="mainContainer">
+                {listMeal(props)}
             </div>
-        )
-    }
-    // api call 
-    componentDidMount(){
-        fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-            this.setState({mealType:data})
-        })
-    }
+            
+        </>
+    )
 }
 
-export default QuickSearch;
+export default QuickDisplay

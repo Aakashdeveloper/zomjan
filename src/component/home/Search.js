@@ -1,35 +1,34 @@
 import React,{Component} from 'react';
-import './Search.css';
-import {withRouter} from 'react-router-dom';
+import './search.css';
 
-const url = "http://localhost:9700/location";
-const restUrl = "http://localhost:9700/restaurant?stateId="
-
+const lurl = "http://3.17.216.66:4000/location";
+const rurl = "http://3.17.216.66:4000/restaurant?stateId="
 class Search extends Component{
+
     constructor(){
         super()
-
+        console.log(">>>>insie constructor")
         this.state={
             location:'',
-            restaurant:''
+            restData:''
         }
     }
 
     renderCity = (data) => {
         if(data){
             return data.map((item) => {
-                return (
-                    <option value={item.state_id} key={item.state_id}>{item.state}</option>
+                return(
+                    <option value={item.state_id} key={item._id}>{item.state}</option>
                 )
             })
         }
     }
 
-    renderHotel = (data) => {
+    renderRest = (data) => {
         if(data){
             return data.map((item) => {
                 return (
-                    <option value={item.restaurant_id} key={item.restaurant_id}>
+                    <option value={item.restaurant_id} key={item._id}>
                         {item.restaurant_name} | {item.address}
                     </option>
                 )
@@ -38,56 +37,56 @@ class Search extends Component{
     }
 
     handleCity = (event) => {
-        console.log(event.target.value)
-        const cityId = event.target.value
-        fetch(`${restUrl}${cityId}`,{method:'GET'})
+        console.log(event.target.value);
+        let statId = event.target.value
+        fetch(`${rurl}${statId}`,{method:'GET'})
         .then((res) => res.json())
-        .then((data) => {
-            this.setState({restaurant:data})
-        })
+        .then((data) => {this.setState({restData:data})})
     }
 
-    handleRest = (event) => {
-        this.props.history.push(`/details/${event.target.value}`)
-    }
     render(){
-        console.log(">>>in search",this.props)
+        //console.log(">>>>data",this.state.restData)
         return(
-            <div className="search">
-                <div id="logo">
-                    <span>D!</span>
+            <>
+                <div id="search">
+                    <div className="logo">
+                        <span>D!</span>
+                    </div>
+                    <div id="heading">
+                        Find Best Place Near You
+                    </div>
+                    <div id="dropdown">
+                        <select onChange={this.handleCity}>
+                            <option>----Select Location----</option>
+                            {this.renderCity(this.state.location)}
+                        </select>
+                        <select id="restSelect">
+                            <option>----Select Restaurant----</option>
+                            {this.renderRest(this.state.restData)}
+                        </select>
+                    </div>
                 </div>
-                <div id="heading">
-                    Search Place Near To You
-                </div>
-                <div id="dropdown">
-                    <select onChange={this.handleCity}>
-                        <option>----SELECT Location----</option>
-                        {this.renderCity(this.state.location)}
-                    </select>
-                    <select id="restaurant" onChange={this.handleRest}>
-                        <option>----SELECT Restaurant----</option>
-                        {this.renderHotel(this.state.restaurant)}
-                    </select>
-                </div>
-            </div>
+            </>
         )
     }
 
-    //api calling 
+
+    //api calling on page load 
     componentDidMount(){
-        // we are getting data from api and setting in the state
-        fetch(url,{method:'GET'})
-        // return the promise
+        console.log(">>>>insie componentDidMount")
+        fetch(lurl ,{method: 'GET'})
+        //return promise
         .then((res) => res.json())
-        // resolve the promise and got data
+        //return data
         .then((data) => {
+            //console.log(data)
             this.setState({location:data})
         })
-        .catch((err) =>{
+        .catch((err) => {
             console.log(err)
         })
+
     }
 }
 
-export default withRouter(Search)
+export default Search

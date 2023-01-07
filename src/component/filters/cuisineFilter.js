@@ -1,17 +1,18 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
-const url = "http://localhost:9700/filter"
+const url = "http://3.17.216.66:4000/filter";
 
 class CuisineFilter extends Component {
+
     filterCuisine = (event) => {
         let mealId = this.props.mealId;
         let cuisineId = event.target.value;
-        let cuisineUrl;
-        if(cuisineId === ""){
-            cuisineUrl = `${url}/${mealId}`;
+        let cuisineUrl = "";
+        if(cuisineId == ""){
+            cuisineUrl = `${url}/${mealId}` 
         }else{
-            cuisineUrl = `${url}/${mealId}?cuisine=${cuisineId}`;
+            cuisineUrl = `${url}/${mealId}?cuisine=${cuisineId}`
         }
         axios.get(cuisineUrl)
             .then((res) => {this.props.restPerCuisine(res.data)})
@@ -20,25 +21,25 @@ class CuisineFilter extends Component {
     render(){
         return(
             <>
-                <center>Cuisine Filter</center>
+                <center><h3>Cuisine Filter</h3></center>
                 <div style={{marginLeft:'15%'}} onChange={this.filterCuisine}>
                     <label className="radio">
-                        <input type="radio" value="" name="cuisine"/>All
+                        <input type="radio" name="cuisine" value=""/>All
                     </label>
                     <label className="radio">
-                        <input type="radio" value="1" name="cuisine"/>North Indian
+                        <input type="radio" name="cuisine" value="1"/>North Indain
                     </label>
                     <label className="radio">
-                        <input type="radio" value="2" name="cuisine"/>South Indian
+                        <input type="radio" name="cuisine" value="2"/>South Indian
                     </label>
                     <label className="radio">
-                        <input type="radio" value="3" name="cuisine"/>Chinese
+                        <input type="radio" name="cuisine" value="3"/>Chinese
                     </label>
                     <label className="radio">
-                        <input type="radio" value="4" name="cuisine"/>Fast Food
+                        <input type="radio" name="cuisine" value="4"/>Fast Food
                     </label>
                     <label className="radio">
-                        <input type="radio" value="5" name="cuisine"/>Street Food
+                        <input type="radio" name="cuisine" value="5"/>Street Food
                     </label>
                 </div>
             </>

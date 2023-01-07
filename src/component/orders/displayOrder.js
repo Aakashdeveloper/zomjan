@@ -1,21 +1,21 @@
 import React from 'react';
 
-const BookingDisplay = (props) => {
-    const renderTable = ({bookdata}) => {
-        if(bookdata){
-            return bookdata.map((item) => {
+const Display = (props) => {
+
+    const renderTable = ({orderData}) => {
+        if(orderData){
+            return orderData.map((item) => {
                 return(
                     <tr key={item.id}>
-                        <th>{item.id}</th>
-                        <th>{item.hotel_name}</th>
-                        <th>{item.name}</th>
-                        <th>{item.phone}</th>
-                        <th>{item.email}</th>
-                        <th>Rs. {item.cost}</th>
-                        <th>{item.date}</th>
-                        <th>{item.status}</th>
-                        <th>{item.bank}</th>
-                        
+                        <td>{item.id}</td>
+                        <td>{item.hotel_name}</td>
+                        <td>{item.name}</td>
+                        <td>{item.phone}</td>
+                        <td>{item.email}</td>
+                        <td>Rs.{item.cost}</td>
+                        <td>{item.date}</td>
+                        <td>{item.status}</td>
+                        <td>{item.bank_name}</td>
                     </tr>
                 )
             })
@@ -24,12 +24,12 @@ const BookingDisplay = (props) => {
 
     return(
         <div className="container">
-            <center><h3>Orders List</h3></center>
-            <table className="table">
+            <center><h3>Orders</h3></center>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>OrderId</th>
-                        <th>HName</th>
+                        <th>RName</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Email</th>
@@ -43,8 +43,9 @@ const BookingDisplay = (props) => {
                     {renderTable(props)}
                 </tbody>
             </table>
+
         </div>
     )
 }
 
-export default BookingDisplay
+export default Display;

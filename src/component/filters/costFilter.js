@@ -1,19 +1,20 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
-const url = "http://localhost:9700/filter"
+const url = "http://3.17.216.66:4000/filter";
 
 class CostFilter extends Component {
+
     filterCost = (event) => {
         let mealId = this.props.mealId;
         let cost = event.target.value.split('-');
         let lcost = cost[0];
         let hcost = cost[1];
-        let costUrl;
-        if(event.target.value === ""){
-            costUrl = `${url}/${mealId}`;
+        let costUrl = "";
+        if(event.target.value == ""){
+            costUrl = `${url}/${mealId}` 
         }else{
-            costUrl = `${url}/${mealId}?hcost=${hcost}&lcost=${lcost}`;
+            costUrl = `${url}/${mealId}?hcost=${hcost}&lcost=${lcost}`
         }
         axios.get(costUrl)
             .then((res) => {this.props.restPerCost(res.data)})
@@ -22,25 +23,25 @@ class CostFilter extends Component {
     render(){
         return(
             <>
-                <center>Cost Filter</center>
+                <center><h3>Cost Filter</h3></center>
                 <div style={{marginLeft:'15%'}} onChange={this.filterCost}>
                     <label className="radio">
-                        <input type="radio" value="" name="cuisine"/>All
+                        <input type="radio" name="cuisine" value=""/>All
                     </label>
                     <label className="radio">
-                        <input type="radio" value="100-300" name="cuisine"/>100-300
+                        <input type="radio" name="cuisine" value="0-300"/>0-300
                     </label>
                     <label className="radio">
-                        <input type="radio" value="301-500" name="cuisine"/>301-500
+                        <input type="radio" name="cuisine" value="301-600"/>301-600
                     </label>
                     <label className="radio">
-                        <input type="radio" value="501-700" name="cuisine"/>501-700
+                        <input type="radio" name="cuisine" value="601-900"/>601-900
                     </label>
                     <label className="radio">
-                        <input type="radio" value="701-1000" name="cuisine"/>701-1000
+                        <input type="radio" name="cuisine" value="901-1000"/>901-1000
                     </label>
                     <label className="radio">
-                        <input type="radio" value="1001-3000" name="cuisine"/>1001-3000
+                        <input type="radio" name="cuisine" value="1001-5000"/>1001-5000
                     </label>
                 </div>
             </>

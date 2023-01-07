@@ -1,13 +1,13 @@
-pipeline {
+pipeline{
     agent any
     tools {nodejs "NodeJS"}
-    stages {
+    stages{
         stage("Install"){
             steps {
                 sh "npm install"
             }
         }
-        stage("build"){
+        stage("Build"){
             steps {
                 sh "npm run build"
             }
@@ -15,7 +15,7 @@ pipeline {
         stage("Deploy"){
             steps {
                 sh "rm -rf /usr/local/var/www/react-app/build"
-                sh "cp -R /Users/aakash/.jenkins/workspace/reactbuild/build /usr/local/var/www/react-app/build"
+                sh "cp -R /Users/aakash/.jenkins/workspace/reactnov/build  /usr/local/var/www/react-app/build"
             }
         }
     }

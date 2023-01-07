@@ -1,25 +1,24 @@
 body{
-    margin: auto;
+    margin:auto
 }
-.header{
-    height:70px;
-    width:100%;
-    background-color:#60c0ec;
+a{
+    text-decoration:none
 }
-
+header{
+    /* width: 100%; */
+    height: 60px;
+    /* border:2px solid red */
+    background-color:#3b2632;
+}
 #brand{
     font-size:30px;
     color:white;
-    float: left;
-    margin-left: 6%;
-    margin-top: 1%;
+    float:left;
+    margin-left: 1%;
+    margin-top: 1%
 }
-
-#social{
-    float: left;
-    margin-left: 54%;
-    margin-top: 10px;
-}
-.socialImg{
-    height:50px
+#loginBtn{
+    float:right;
+    margin-top:1%;
+    margin-right: 2%;
 }
